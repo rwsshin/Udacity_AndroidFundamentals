@@ -1,3 +1,5 @@
+//Lesson 02
+
 package com.rwsshin.richard.sunshine;
 
 import android.support.v7.app.ActionBarActivity;
