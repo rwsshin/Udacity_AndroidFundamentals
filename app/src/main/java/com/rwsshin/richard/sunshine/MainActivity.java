@@ -1,4 +1,4 @@
-//Lesson 02
+//Lesson 01
 
 package com.rwsshin.richard.sunshine;
 
