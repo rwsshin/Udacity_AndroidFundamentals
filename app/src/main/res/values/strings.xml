@@ -2,4 +2,7 @@
     <string name="app_name">Sunshine</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="action_option1">Option_1</string>
+    <string name="action_showing">Option_Visible</string>
+    <string name="refresh" translatable="false">Refresh</string>
 </resources>
