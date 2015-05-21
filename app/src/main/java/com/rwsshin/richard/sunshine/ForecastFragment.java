@@ -132,7 +132,11 @@ public class ForecastFragment extends Fragment {
 
 
                 Intent myIntent = new Intent(getActivity(), DetailActivity.class);
-                myIntent.putExtra("description", mForecastAdapter.getItem(position).toString()); //Optional parameters
+                myIntent.setType("text/plain");
+
+                //myIntent.putExtra("description", mForecastAdapter.getItem(position).toString()); //Optional parameters
+                myIntent.putExtra(Intent.EXTRA_TEXT, mForecastAdapter.getItem(position).toString());
+
                 getActivity().startActivity(myIntent);
             }
         });

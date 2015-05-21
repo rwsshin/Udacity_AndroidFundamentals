@@ -8,11 +8,13 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
 public class MainActivity extends ActionBarActivity {
+    private final String LOG_TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,9 @@ public class MainActivity extends ActionBarActivity {
         myIntent.setData(locationUri);
         if (myIntent.resolveActivity(getPackageManager()) != null) {
             startActivity(myIntent);
+        }
+        else{
+            Log.e(LOG_TAG, "Could not resolve location with device functionality.");
         }
     }
 }
