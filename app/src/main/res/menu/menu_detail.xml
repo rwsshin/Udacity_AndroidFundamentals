@@ -1,19 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.rwsshin.richard.sunshine.DetailActivity">
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
 
     <item android:id="@+id/action_view_on_map" android:title="@string/action_map"
         android:orderInCategory="95" app:showAsAction="never" />
-
-
-    <!--
-    <item android:id="@+id/action_option1" android:title="@string/action_option1"
-        android:orderInCategory="10" app:showAsAction="never" />
-
-    <item android:id="@+id/action_showing" android:title="@string/action_showing"
-        android:orderInCategory="5" app:showAsAction="always" />
-     -->
-
 </menu>

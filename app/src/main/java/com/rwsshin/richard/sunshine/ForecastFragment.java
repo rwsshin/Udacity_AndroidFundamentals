@@ -1,7 +1,10 @@
 package com.rwsshin.richard.sunshine;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.text.format.Time;
@@ -12,8 +15,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,12 +54,26 @@ public class ForecastFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.action_refresh){
-            FetchWeatherTask weatherTask = new FetchWeatherTask();
-            weatherTask.execute("94043");
+            updateWeather();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        updateWeather();
+    }
+
+    public void updateWeather(){
+        FetchWeatherTask weatherTask = new FetchWeatherTask();
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String location = prefs.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
+        //weatherTask.execute("94043");
+        weatherTask.execute(location);
     }
 
     @Override
@@ -70,6 +89,7 @@ public class ForecastFragment extends Fragment {
 
         ArrayList<String>alFakeData = new ArrayList<String>();
 
+        /*
         String stringFakeDataEntry = "";
 
         stringFakeDataEntry = "Today - Sunny - 88/63";
@@ -92,6 +112,7 @@ public class ForecastFragment extends Fragment {
 
         stringFakeDataEntry = "Sun - Sunny - 80/68";
         alFakeData.add(stringFakeDataEntry);
+        */
 
         mForecastAdapter = new ArrayAdapter<String>(
                 getActivity(),
@@ -103,6 +124,18 @@ public class ForecastFragment extends Fragment {
         View myFragmentView = inflater.inflate(R.layout.fragment_main, container, false);
         ListView lvForecast = (ListView)myFragmentView.findViewById(R.id.list_view_forecast);
         lvForecast.setAdapter(mForecastAdapter);
+        lvForecast.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity(), mForecastAdapter.getItem(position).toString(),
+                        Toast.LENGTH_LONG).show();
+
+
+                Intent myIntent = new Intent(getActivity(), DetailActivity.class);
+                myIntent.putExtra("description", mForecastAdapter.getItem(position).toString()); //Optional parameters
+                getActivity().startActivity(myIntent);
+            }
+        });
 
         return myFragmentView;
     }
@@ -156,7 +189,10 @@ public class ForecastFragment extends Fragment {
         private String[] getOneWeekForecastFromOpenWeather(String zipcode){
             int numDays = 7;
             String format = "json";
-            String units = "metric";
+
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            String units = prefs.getString(getActivity().getString(R.string.pref_units_key), getActivity().getString(R.string.pref_units_default));
+
             //github code snippet
             //https://gist.githubusercontent.com/udacityandroid/d6a7bb21904046a91695/raw/7cf133f276d1a3abb2b6f8bff2e7f02f201ed98f/MainActivity.java
             //log types: error, warn, info, debug, verbose

@@ -5,4 +5,10 @@
     <string name="action_option1">Option_1</string>
     <string name="action_showing">Option_Visible</string>
     <string name="refresh" translatable="false">Refresh</string>
+    <string name="title_activity_detail">DetailActivity</string>
+    <string name="action_map">View Map</string>
+
+
+
+
 </resources>
